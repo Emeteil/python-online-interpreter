@@ -1,0 +1,10 @@
+url: 'http://localhost:8000'
+host: '0.0.0.0'
+port: 8000
+
+timeout: 30
+timeout-message: 'Code execution timed out after 30 seconds'
+
+black-list:
+- 'input()'
+black-list-message: 'inpute() is unavailable!'

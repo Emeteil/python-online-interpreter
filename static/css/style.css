@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+h2 {
+    margin-top: 20px;
+    color: #333;
+}
+
+#code {
+    width: 100%;
+    padding: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+pre {
+    background-color: #f1f1f1;
+    padding: 10px;
+}
+
+#output {
+    color: #1c772b;
+}
+
+#error {
+    color: #ae3644;
+}
