@@ -25,7 +25,7 @@ def home_share(name: str):
     else:
         return ''
 
-@app.route('/execute', methods=['POST'])
+@app.route('/api/execute', methods=['POST'])
 def execute_code():
     code = request.json['code']
     
@@ -52,7 +52,7 @@ def execute_code():
             'error': settings['timeout-message']
         })
 
-@app.route('/share', methods=['POST'])
+@app.route('/api/share', methods=['POST'])
 def share():
     code = request.form['code']
     output = request.form['output']

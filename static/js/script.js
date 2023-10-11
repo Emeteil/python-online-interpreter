@@ -9,7 +9,7 @@ $(document).ready(function () {
         executeBtn.text('Executing...');
 
         $.ajax({
-            url: '/execute',
+            url: '/api/execute',
             type: 'POST',
             data: JSON.stringify({ 'code': code }),
             contentType: 'application/json',

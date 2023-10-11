@@ -4,7 +4,7 @@ $(document).ready(function () {
         var output = $('#output').text();
         var error = $('#error').text();
 
-        $.post('/share', { code: code, output: output, error: error }, function (response) {
+        $.post('/api/share', { code: code, output: output, error: error }, function (response) {
             var url = response.url;
 
             const textToCopy = url;
