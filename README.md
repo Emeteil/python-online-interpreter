@@ -1,5 +1,5 @@
 # ✨Python online interpreter
-[![GitHub stars](https://img.shields.io/github/stars/Naereen/StrapDown.js.svg?style=social&label=Star&maxAge=2592000)](https://github.com/Emeteil/python-online-interpreter/stargazers/)
+[![GitHub stars](https://img.shields.io/github/stars/Emeteil/python-online-interpreter.svg?style=social&label=Star&maxAge=2592000)](https://github.com/Emeteil/python-online-interpreter/stargazers/)
 
 **Very simple online Python code interpreter**
 
