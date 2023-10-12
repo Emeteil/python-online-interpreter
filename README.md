@@ -3,4 +3,4 @@
 
 **Very simple online Python code interpreter**
 
-![screenshot](https://github.com/Emeteil/python-online-interpreter/assets/94739287/b415d890-dd24-4a80-8f5f-7a6f7219b53b)
+![screenshot](https://github.com/Emeteil/python-online-interpreter/assets/94739287/90798414-3eb4-4d6d-9b87-977cecfa3175)
