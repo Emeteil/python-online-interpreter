@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template, redirect
+from flask import Flask, jsonify, request, render_template, redirect, send_from_directory
 import subprocess
 import requests
 import random
@@ -19,7 +19,7 @@ if not os.path.exists('shares'):
 @app.route('/<name>')
 def home(name: str = ''):
     if name == 'favicon.ico':
-        return ''
+        return redirect("/static/img/favicon.png")
     
     if name:
         try:
