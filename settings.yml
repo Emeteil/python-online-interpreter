@@ -7,4 +7,8 @@ timeout-message: 'Code execution timed out after 30 seconds'
 
 black-list:
 - 'input()'
-black-list-message: 'inpute() is unavailable!'
+- 'open('
+black-list-message: 'inpute() and open() is unavailable!'
+
+short-link: false
+goo.su-apikey: 'None'

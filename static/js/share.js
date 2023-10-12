@@ -1,8 +1,12 @@
 $(document).ready(function () {
     $('#share').click(function () {
         var code = codeEditor.getValue();
+        var shareBtn = $(this);
         var output = $('#output').text();
         var error = $('#error').text();
+
+        shareBtn.prop('disabled', true);
+        shareBtn.text('Share...');
 
         $.post('/api/share', { code: code, output: output, error: error }, function (response) {
             var url = response.url;
@@ -20,6 +24,8 @@ $(document).ready(function () {
                 'Text copied to clipboard!',
                 'success'
             )
+            shareBtn.prop('disabled', false);
+            shareBtn.text('Share');
         });
     });
 });

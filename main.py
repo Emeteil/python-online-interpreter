@@ -1,5 +1,6 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, redirect
 import subprocess
+import requests
 import random
 import string
 import yaml
@@ -11,19 +12,25 @@ app = Flask(__name__)
 with open('settings.yml') as file:
     settings = yaml.load(file, Loader=yaml.FullLoader)
 
-@app.route('/')
-def home():
-    return render_template('index.html', code='', output='', error='')
+if not os.path.exists('shares'):
+    os.makedirs('shares')
 
+@app.route('/')
 @app.route('/<name>')
-def home_share(name: str):
-    if name != 'favicon.ico':
-        with open(f'shares/{name}.json', 'r', encoding='utf-8') as f:
-            data = json.load(f)
-            f.close
-        return render_template('index.html', code=data['code'], output=data['output'], error=data['error'])
-    else:
+def home(name: str = ''):
+    if name == 'favicon.ico':
         return ''
+    
+    if name:
+        try:
+            with open(f'shares/{name}.json', 'r', encoding='utf-8') as f:
+                data = json.load(f)
+        except FileNotFoundError:
+            return redirect("/")
+    
+        return render_template('index.html', code=data['code'], output=data['output'], error=data['error'])
+        
+    return render_template('index.html', code='', output='', error='')
 
 @app.route('/api/execute', methods=['POST'])
 def execute_code():
@@ -57,9 +64,6 @@ def share():
     code = request.form['code']
     output = request.form['output']
     error = request.form['error']
-
-    if not os.path.exists('shares'):
-        os.makedirs('shares')
         
     random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
 
@@ -74,7 +78,23 @@ def share():
     with open(os.path.join('shares', random_string + '.json'), 'w') as f:
         json.dump(data, f)
 
-    url = f"{settings['url']}/{random_string}"
+    if settings['short-link']:
+        headers_gooso = {
+            'content-type': 'application/json',
+            'x-goo-api-token': settings['goo.su-apikey']
+        }
+        data_gooso = {
+            'url': f"{settings['url']}/{random_string}",
+            'is_public': False,
+            'group_id': 2
+        }
+        try:
+            response = requests.post('https://goo.su/api/links/create', headers=headers_gooso, json=data_gooso)
+            url = response.json()['short_url']
+        except:
+            url = f"{settings['url']}/{random_string}"
+    else:
+        url = f"{settings['url']}/{random_string}"
 
     return jsonify({'url': url})
 
