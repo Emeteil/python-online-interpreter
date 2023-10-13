@@ -19,8 +19,7 @@
     <div class="buttons-wrapper my-buttons" style="all: unset; position: fixed; top: 10px; right: 10px; z-index: 9999;">
         <a class="button" href="https://github.com/Emeteil"
             style="all: unset; display: inline-block; margin-left: 5px;">
-            <img src="static/img/github.png"
-                style="all: unset; width: 30px; height: 30px; ">
+            <img src="static/img/github.png" style="all: unset; width: 30px; height: 30px; ">
         </a>
     </div>
     <h1>Python Online Interpreter</h1>
@@ -31,6 +30,19 @@
             lineNumbers: true,
             mode: "python",
             theme: "monokai"
+        });
+
+        codeEditor.on("keydown", function (editor, event) {
+            var openChars = ["(", "{", "[", "\"", "'", "<"];
+            var closeChars = [")", "}", "]", "\"", "'", ">"];
+            var cursor = codeEditor.getCursor();
+
+            if (event.key && openChars.includes(event.key)) {
+                var closeChar = closeChars[openChars.indexOf(event.key)];
+                codeEditor.replaceRange(event.key + closeChar, cursor);
+                codeEditor.setCursor({ line: cursor.line, ch: cursor.ch + 1 });
+                event.preventDefault();
+            }
         });
     </script>
     <br>
