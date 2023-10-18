@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    $("#execute").click(function () {        
+    function executeCode() {
         var code = codeEditor.getValue();
-        var executeBtn = $(this);
+        var executeBtn = $("#execute");
         document.getElementById("output").innerText = "";
         document.getElementById("error").innerText = "";
 
@@ -21,5 +21,13 @@ $(document).ready(function () {
                 executeBtn.text('Execute');
             }
         });
+    }
+
+    $("#execute").click(executeCode);
+
+    $(document).keydown(function (e) {
+        if (e.which === 119) { // Press F8
+            executeCode();
+        }
     });
 });
