@@ -80,6 +80,10 @@
                     }
                 }
             }
+            if (event.key === "Tab") {
+                event.preventDefault();
+                codeEditor.replaceRange("  ", cursor);
+            }
         });
     </script>
     <br>
