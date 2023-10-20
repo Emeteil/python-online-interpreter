@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#share').click(function () {
+    function shareCode() {
         var code = codeEditor.getValue();
         var shareBtn = $(this);
         var output = $('#output').text();
@@ -27,5 +27,14 @@ $(document).ready(function () {
             shareBtn.prop('disabled', false);
             shareBtn.text('Share');
         });
+    }
+
+    $("#share").click(shareCode);
+
+    $(document).keydown(function (e) {
+        if (e.ctrlKey && e.which === 83) { // Press Ctrl+S
+            e.preventDefault();
+            shareCode();
+        }
     });
 });
