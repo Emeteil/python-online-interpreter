@@ -1,7 +1,7 @@
 $(document).ready(function () {
     function shareCode() {
         var code = codeEditor.getValue();
-        var shareBtn = $(this);
+        var shareBtn = $('#share');
         var output = $('#output').text();
         var error = $('#error').text();
 
