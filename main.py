@@ -12,6 +12,12 @@ app = Flask(__name__)
 with open('settings.yml') as file:
     settings = yaml.load(file, Loader=yaml.FullLoader)
 
+if settings['short-link']:
+    if settings['goo.su']['environ']:
+        settings['goo.su']['goo.su-apikey'] = os.environ['GOO_SU_APIKEY']
+    if settings['my']['environ']:
+        settings['my']['headers'] = os.environ['MY_HEADERS']
+
 if not os.path.exists('shares'):
     os.makedirs('shares')
 
@@ -79,19 +85,30 @@ def share():
         json.dump(data, f)
 
     if settings['short-link']:
-        headers_gooso = {
-            'content-type': 'application/json',
-            'x-goo-api-token': settings['goo.su-apikey']
-        }
-        data_gooso = {
-            'url': f"{settings['url']}/{random_string}",
-            'is_public': False,
-            'group_id': 2
-        }
-        try:
-            response = requests.post('https://goo.su/api/links/create', headers=headers_gooso, json=data_gooso)
-            url = response.json()['short_url']
-        except:
+        if settings['short-link-service'] == "goo.su":
+            headers_gooso = {
+                'content-type': 'application/json',
+                'x-goo-api-token': settings['goo.su-apikey']
+            }
+            data_gooso = {
+                'url': f"{settings['url']}/{random_string}",
+                'is_public': False,
+                'group_id': 2
+            }
+            try:
+                response = requests.post('https://goo.su/api/links/create', headers=headers_gooso, json=data_gooso)
+                url = response.json()['short_url']
+            except:
+                url = f"{settings['url']}/{random_string}"
+        elif settings['short-link-service'] == "my":
+            data_my_sl = {settings['my']['data-url']: f"{settings['url']}/{random_string}"}
+            
+            try:
+                response = requests.post(settings['my']['url'], headers=eval(settings['my']['headers']), json=data_my_sl)
+                url = response.json()[settings['my']['response']]
+            except:
+                url = f"{settings['url']}/{random_string}"
+        else:
             url = f"{settings['url']}/{random_string}"
     else:
         url = f"{settings['url']}/{random_string}"

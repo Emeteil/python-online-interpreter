@@ -11,4 +11,13 @@ black-list:
 black-list-message: 'input() and open() is unavailable!'
 
 short-link: false
-goo.su-apikey: 'None'
+short-link-service: "my" # "goo.su" or "my"
+goo.su:
+  environ: false
+  goo.su-apikey: 'None'
+my:
+  environ: false
+  url: ''
+  headers: "{'Content-Type': 'application/json','x-api-token': ''}"
+  data-url: "url"
+  response: 'short_url'
