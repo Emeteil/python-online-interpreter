@@ -19,7 +19,10 @@ if settings['short-link']:
         settings['my']['headers'] = os.environ['MY_HEADERS']
 
 if not os.path.exists('shares'):
-    os.makedirs('shares')
+    try:
+        os.makedirs('shares')
+    except OSError as e:
+        print('Caught OSError:', e)
 
 @app.route('/')
 @app.route('/<name>')
